@@ -1,2 +1,2 @@
-10.1.8.42 slots=3
-10.1.8.33 slots=3
+MPI-node1 slots=3
+MPI-node4 slots=3
