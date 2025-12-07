@@ -18,7 +18,7 @@
 
 // Constant declaration
 const int MAP_SIZE = 4000;
-const int ITERATIONS = 5;
+const int ITERATIONS = 100;
 const float HEAT_KERNEL[3][3] = { {0.05, 0.1, 0.05},
                                 {0.1, 0.4, 0.1},
                                 {0.05, 0.1, 0.05} };
@@ -35,7 +35,7 @@ const int spread_speed = 343;
 const float EXPLODE_POS = MAP_SIZE*0.5-0.5;
 const int WEIGHT = 5*pow(10,6);
 const int INIT = 0;
-const int NUM_THREAD = 4;
+const int NUM_THREAD = 1;
 const std::string LAB1 = "Heat_Diffusion.csv";
 const std::string LAB2 = "Radioactive_Diffusion.csv";
 const std::string LAB3 = "Shock_wave_blast.csv";
@@ -660,9 +660,9 @@ int main(int argc, char** argv){
         MPI_Reduce(&local_peak_temp,&peak_temp,1,MPI_DOUBLE,MPI_MAX,0,MPI_COMM_WORLD);
         MPI_Reduce(&local_cont_area,&cont_area,1,MPI_INT,MPI_SUM,0,MPI_COMM_WORLD);
         if(world_rank==0){
-            std::cout<<"HEAT DIFFUSION REPORT: "<<peak_temp<<std::endl;
-            std::cout<<"RADI DIFFUSION REPORT: "<<cont_area<<std::endl;
-            std::cout<<"SHOCKWAVE REPORT: "<<sw_radius<<" "<<sw_area<<std::endl;
+            std::cout<<"HEAT DIFFUSION REPORT: Peak temperature is "<<peak_temp<<" degree"<<std::endl;
+            std::cout<<"RADI DIFFUSION REPORT: There are "<<cont_area<<"/"<<MAP_SIZE*MAP_SIZE<<" contaminated"<<std::endl;
+            std::cout<<"SHOCKWAVE REPORT: Affected radius: "<<sw_radius<<" Affected area: "<<sw_area<<"/"<<MAP_SIZE*MAP_SIZE<<std::endl;
             std::cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"<<n+1<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"<<std::endl;
             // Report, Check number of iterations. If 100 iterations, Broadcast stop signal
             n++;
